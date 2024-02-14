@@ -10,8 +10,8 @@ import OptionsApi from './components/OptionsApi.vue'
   </header>  
   <CounterButton v-bind:start="10"/>
   <CounterButton :start="15"/>
-  <CounterButton/>
-  <CounterButton/>
+  <CounterButton style="background:yellow"/>
+  <CounterButton class="myButton"/>
   <CounterButton/>
   <CounterButton/>
   <CounterButton/>
@@ -22,5 +22,7 @@ import OptionsApi from './components/OptionsApi.vue'
 </template>
 
 <style scoped>
-
+  .myButton {
+    background:red;
+  }
 </style>

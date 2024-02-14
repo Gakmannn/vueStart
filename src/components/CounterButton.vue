@@ -6,7 +6,11 @@ const counter = ref(start)
 </script>
 
 <template>
-  <button @click="counter++">{{ counter }}</button>
+  <button class="innerStyle" @click="counter++">{{ counter }}</button>
 </template>
 
-<style scoped></style>
+<style scoped>
+.innerStyle {
+  background-color: green;
+}
+</style>
