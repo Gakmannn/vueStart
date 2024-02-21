@@ -1,6 +1,8 @@
 <template>
-  <input type="text" v-model="question">
-  <div>{{ russianAnswer }}</div>
+  <div style="margin: 20px auto; max-width: 400px;">
+    <input type="text" v-model="question">
+    <div>{{ russianAnswer }}</div>
+  </div>
 </template>
 
 <script lang="ts">
