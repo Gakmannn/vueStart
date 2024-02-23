@@ -5,10 +5,13 @@
   <form v-on:submit.prevent="addNewTodo">
     <label for="new-todo">Добавить задачу</label>
     <input
-      v-model="newTodoText"
+      v-model.lazy="newTodoText"
       id="new-todo"
       placeholder="Например, покормить кота"
+      value="fsdfsdf"
     />
+    {{ newTodoText }}
+    <button @click.prevent="newTodoText+=' и Поспать'">По умолчанию</button>
     <button>Добавить</button>
   </form>
   <ul ref="list">
