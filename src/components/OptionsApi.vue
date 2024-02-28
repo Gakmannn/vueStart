@@ -1,18 +1,29 @@
 <template>
-  <button @click="increment" @mouseover="sayHi">{{ count }}</button>  
+  <button @click="increment" @mouseover="sayHi">{{ countD }} {{text}} {{ superText }}</button>  
 </template>
 
 <script lang="ts">
 export default {
+  props: {
+    count:{
+      type:Number,
+      default: 3
+    }, 
+    text: {
+      type: String,
+      required: true
+    },
+    superText: String
+  },
   data() {
     return {
-      count: 0
+      countD: this.count ? this.count : 0
     }
   },
   methods: {
     increment(e:MouseEvent) {
-      this.count++
-      if (this.count == 5) {
+      this.countD++
+      if (this.countD == 5) {
         this.$emit('hide')
       }
     },
@@ -22,7 +33,7 @@ export default {
   },
   computed: {
     color() {
-      return this.count % 2 ? 'blue' : 'orange'
+      return this.countD % 2 ? 'blue' : 'orange'
     }
   },
   beforeCreate() {

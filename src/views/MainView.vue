@@ -2,16 +2,23 @@
 import TemplateButton from '@/components/TemplateButton.vue'
 import CounterButton from '@/components/CounterButton.vue'
 import OptionsApi from '@/components/OptionsApi.vue'
-import LinksComponent from '@/components/LinksComponent.vue'
+// import LinksComponent from '@/components/LinksComponent.vue'
 import YesNoWTF from '@/components/YesNoWTF.vue'
 import ToDo from '@/components/ToDo.vue'
-import { ref } from 'vue'
+import CompositionInput from '@/components/CompositionInput.vue'
+import OptionsInput from '@/components/OptionInput.vue'
+import { ref, defineAsyncComponent } from 'vue'
 import { useCounter } from '@/stores/counterComposition'
 import { useUser } from '@/stores/user'
+
+const LinksComponent = defineAsyncComponent(() => import('@/components/LinksComponent.vue'))
 
 const counterStore = useCounter()
 const userStore = useUser()
 
+const userText2 = ref('')
+const userText = ref('')
+const checkStatus = ref(null)
 const hide = ref(false)
 const isActive = ref(false)
 const activeClass = 'active'
@@ -33,9 +40,18 @@ const removeElemStart = () => {
   items.value.shift()
 }
 
+const check = (data:string)=>data.length<5?false:true
+
 </script>
 
 <template>
+  <OptionsInput v-model="userText"/> {{ userText }}
+  <CompositionInput
+      :class="{ confirm : checkStatus, error : !checkStatus }" 
+      v-model:title="userText2" 
+      :checkFunc="check" 
+      v-model:check="checkStatus"/>
+  <p>##########</p> {{ userText2 }} {{ checkStatus }}
   <ToDo></ToDo>
   {{ userStore.user }}
   <header>
@@ -61,7 +77,7 @@ const removeElemStart = () => {
   <TemplateButton></TemplateButton>
   <br>
   <template v-if="!hide">
-    <OptionsApi v-on:hide="hide = true" />
+    <OptionsApi @hide="hide = true" :count="80" text="unic text" superText="sfsdfsd" />
     <p :style="{ color: 'red', fontSize: fontSize + 'px' }">Эта кнопка и текст исчезнут, когда счётчик достигнет 5</p>
   </template>
   <button class="uppercase" :class="{ active: isActive, isHidden: hide }" @click="hide = false">Show hidden Button</button>
@@ -99,4 +115,15 @@ const removeElemStart = () => {
 
 .isHidden {
   padding: 50px;
-}</style>
+}
+
+.confirm {
+  border:  green solid 2px;
+
+}
+
+.error {
+  border: red solid 2px;
+}
+
+</style>
